@@ -52,13 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
     
     _speechEnabled = await _speechToText.initialize(
       onError: (error) {
-        print('Error en speech recognition: $error');
+        print('Speech recognition error: $error');
         setState(() {
           _isListening = false;
         });
       },
       onStatus: (status) {
-        print('Status del speech recognition: $status');
+        print('Speech recognition status: $status');
         setState(() {
           _isListening = status == 'listening';
         });
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       listenFor: const Duration(seconds: 30),
       pauseFor: const Duration(seconds: 3),
       partialResults: true,
-      localeId: 'es_ES', // Español de España
+      localeId: 'en_US', // English - United States
       cancelOnError: true,
       listenMode: ListenMode.confirmation,
     );
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Indicador de estado
+              // Status indicator
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -136,10 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(width: 8),
                     Text(
                       _isListening 
-                          ? 'Escuchando...' 
+                          ? 'Listening...' 
                           : (_speechEnabled 
-                              ? 'Toca el micrófono para hablar' 
-                              : 'Speech recognition no disponible'),
+                              ? 'Tap the microphone to speak' 
+                              : 'Speech recognition not available'),
                       style: TextStyle(
                         color: _isListening ? Colors.green : Colors.grey,
                         fontWeight: FontWeight.bold,
@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 30),
               
-              // Texto reconocido
+              // Recognized text
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Texto reconocido:',
+                          'Recognized text:',
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             color: Colors.blue.shade700,
                             fontWeight: FontWeight.bold,
@@ -196,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      _lastWords.isEmpty ? 'Ningún texto reconocido aún' : _lastWords,
+                      _lastWords.isEmpty ? 'No text recognized yet' : _lastWords,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontSize: 18,
                       ),
@@ -206,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 40),
               
-              // Botón de micrófono principal
+              // Main microphone button
               GestureDetector(
                 onTap: _speechEnabled
                     ? (_isListening ? _stopListening : _startListening)
@@ -236,22 +236,22 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 20),
               
-              // Texto de ayuda
+              // Help text
               Text(
                 _isListening 
-                    ? 'Toca para detener' 
-                    : 'Toca para empezar a hablar',
+                    ? 'Tap to stop' 
+                    : 'Tap to start speaking',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.grey.shade600,
                 ),
               ),
               const SizedBox(height: 30),
               
-              // Botones de acción
+              // Action buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Botón para limpiar texto
+                  // Button to clear text
                   ElevatedButton.icon(
                     onPressed: _lastWords.isNotEmpty ? () {
                       setState(() {
@@ -260,20 +260,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     } : null,
                     icon: const Icon(Icons.clear),
-                    label: const Text('Limpiar'),
+                    label: const Text('Clear'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
                       foregroundColor: Colors.white,
                     ),
                   ),
                   
-                  // Botón para reinicializar speech
+                  // Button to restart speech
                   ElevatedButton.icon(
                     onPressed: () {
                       _initSpeech();
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Reiniciar'),
+                    label: const Text('Restart'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,
                       foregroundColor: Colors.white,
@@ -282,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               
-              // Información adicional
+              // Additional information
               const SizedBox(height: 30),
               Container(
                 padding: const EdgeInsets.all(16),
@@ -296,7 +296,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Icon(Icons.info_outline, color: Colors.amber),
                     const SizedBox(height: 8),
                     Text(
-                      'Habla claramente y espera a que aparezca el texto.\nLa precisión se muestra con el porcentaje de confianza.',
+                      'Speak clearly and wait for the text to appear.\nAccuracy is shown with the confidence percentage.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.amber.shade800,
