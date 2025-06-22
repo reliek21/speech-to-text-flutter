@@ -1,5 +1,10 @@
 name: voice_test_app
-description: "A new Flutter project."
+descriptdependencies:
+  cupertino_icons: ^1.0.8
+  flutter:
+    sdk: flutter
+  speech_to_text: ^7.0.0
+  permission_handler: ^11.3.1A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
